@@ -1,0 +1,17 @@
+version: "3.1"
+services:
+  worker-agent:
+    build: .
+    image: levitin/azure-docker-agent
+    container_name: worker-agent
+    networks:
+      - docker-agent-network
+    environment:
+      - AZP_URL=***
+      - AZP_TOKEN=***
+      - AZP_AGENT_NAME=***
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+networks:
+  docker-agent-network:
