@@ -2,7 +2,7 @@
 #
 # start.sh
 #
-# Created on 2022-04-23
+# Created on 2022-04-24
 #
 # Copyright (C) 2022 Volkswagen AG, All rights reserved.
 #
@@ -52,6 +52,8 @@ print_header() {
   nocolor='\033[0m'
   echo -e "${lightcyan}$1${nocolor}"
 }
+
+cleanup
 
 # Let the agent ignore the token env variables
 export VSO_AGENT_IGNORE=AZP_TOKEN,AZP_TOKEN_FILE
