@@ -1,11 +1,16 @@
 [Unit]
 Description=Minikube Service
+After=docker.service
+BindsTo=docker.service
+ReloadPropagatedFrom=docker.service
 
 [Service]
+Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/local/bin/minikube start
+ExecStart=/usr/local/bin/minikube start --apiserver-ips=192.168.178.5
 ExecStop=/usr/local/bin/minikube stop
-Restart=always
+User=levitin
+Group=levitin
 
 [Install]
 WantedBy=multi-user.target
