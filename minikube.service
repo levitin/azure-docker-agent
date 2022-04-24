@@ -1,0 +1,12 @@
+[Unit]
+Description=Minikube Service
+
+[Service]
+RemainAfterExit=yes
+ExecStart=/usr/local/bin/minikube start
+ExecStop=/usr/local/bin/minikube stop
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+Alias=minikube.service
