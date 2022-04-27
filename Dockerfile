@@ -15,12 +15,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libicu60 \
     libunwind8 \
     netcat \
-    libssl1.0 \
-  && rm -rf /var/lib/apt/lists/* \
-  && curl -sSL https://get.docker.com/ | sh
+    libssl1.0
 
-RUN curl -LsS https://aka.ms/InstallAzureCLIDeb | bash \
-  && rm -rf /var/lib/apt/lists/*
+RUN curl -sSL https://get.docker.com/ | sh
+
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+    && install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3  \
+    && chmod 700 get_helm.sh \
+    && ./get_helm.sh
+
+RUN apt install maven
+
+RUN curl -LsS https://aka.ms/InstallAzureCLIDeb | bash
+
+RUN rm -rf /var/lib/apt/lists/*
 
 # Can be 'linux-x64', 'linux-arm64', 'linux-arm', 'rhel.6-x64'.
 ENV TARGETARCH=linux-x64
